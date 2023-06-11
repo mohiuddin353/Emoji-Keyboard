@@ -115,7 +115,7 @@ class MainDialog : DialogFragment() {
       })
       .setOnEmojiPopupDismissListener(object : OnEmojiPopupDismissListener {
         override fun onEmojiPopupDismiss() {
-          emojiButton!!.setImageResource(R.drawable.emoji_ios_category_people)
+          emojiButton!!.setImageResource(R.drawable.emoji_google_category_people)
         }
       })
       .setOnSoftKeyboardCloseListener(object : OnSoftKeyboardCloseListener {

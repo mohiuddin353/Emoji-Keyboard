@@ -4,15 +4,20 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.graphics.Insets
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.WindowInsets
+import android.view.WindowMetrics
 import android.widget.PopupWindow
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+
 
 class Utils {
   companion object {
@@ -42,9 +47,16 @@ class Utils {
     }
 
     fun screenHeight(@NonNull context: Activity): Int {
-      val size = Point()
-      context.windowManager.defaultDisplay.getSize(size)
-      return size.y
+      return if (VERSION.SDK_INT >= VERSION_CODES.R) {
+        val windowMetrics: WindowMetrics = context.windowManager.currentWindowMetrics
+        val insets: Insets = windowMetrics.windowInsets
+          .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+        windowMetrics.bounds.height() - insets.top - insets.bottom
+      } else {
+        val displayMetrics = DisplayMetrics()
+        context.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        displayMetrics.heightPixels
+      }
     }
 
     @NonNull

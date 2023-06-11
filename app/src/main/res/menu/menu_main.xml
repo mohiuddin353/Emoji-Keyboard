@@ -38,6 +38,9 @@
         <item
           android:id="@+id/variantWindows"
           android:title="@string/variant_windows_title"/>
+        <item
+            android:id="@+id/variantCustom"
+            android:title="Custom"/>
       </group>
     </menu>
   </item>

@@ -5,8 +5,8 @@ import android.graphics.PorterDuff
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -46,6 +46,7 @@ class EmojiView : LinearLayoutCompat, ViewPager.OnPageChangeListener {
 
   private lateinit var emojiTabs: MutableList<AppCompatImageButton>
   private lateinit var emojiPagerAdapter: EmojiPagerAdapter
+  private lateinit var backspaceBtn: ImageButton
 
   @Nullable
   var onEmojiBackspaceClickListener: OnEmojiBackspaceClickListener? = null
@@ -70,6 +71,8 @@ class EmojiView : LinearLayoutCompat, ViewPager.OnPageChangeListener {
 
     val emojisPager: ViewPager = findViewById(R.id.emojis_pager)
     val emojisTab = findViewById<LinearLayout>(R.id.emojis_tab)
+
+    backspaceBtn = findViewById<ImageButton>(R.id.backspace)
     emojisPager.addOnPageChangeListener(this)
 
     val categories: Array<EmojiCategory> = EmojiManager.getInstance().getCategories()
@@ -79,7 +82,9 @@ class EmojiView : LinearLayoutCompat, ViewPager.OnPageChangeListener {
     for (i in categories.indices) {
       emojiTabs.add(inflateButton(context, categories[i].getIcon(), emojisTab))
     }
-    emojiTabs.add(inflateButton(context, R.drawable.emoji_backspace, emojisTab))
+//    emojiTabs.add(inflateButton(context, R.drawable.emoji_backspace, emojisTab))
+    backspaceBtn.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.emoji_backspace))
+    backspaceBtn.setColorFilter(themeIconColor, PorterDuff.Mode.SRC_IN)
 
     handleOnClicks(emojisPager)
 
@@ -93,7 +98,7 @@ class EmojiView : LinearLayoutCompat, ViewPager.OnPageChangeListener {
   }
 
   private fun handleOnClicks(emojisPager: ViewPager) {
-    for (i in 0 until emojiTabs.size - 1) {
+    for (i in 0 until emojiTabs.size) {
       emojiTabs[i].setOnClickListener(
         EmojiTabsClickListener(
           emojisPager,
@@ -102,7 +107,7 @@ class EmojiView : LinearLayoutCompat, ViewPager.OnPageChangeListener {
       )
     }
 
-    emojiTabs[emojiTabs.size - 1].setOnTouchListener(
+    backspaceBtn.setOnTouchListener(
       RepeatListener(
         INITIAL_INTERVAL, NORMAL_INTERVAL
       ) { view ->

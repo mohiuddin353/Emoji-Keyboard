@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import androidx.emoji2.bundled.BundledEmojiCompatConfig
-import androidx.emoji2.text.EmojiCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.leonardpark.app.emoji.databinding.ActivityMainBinding
@@ -21,15 +19,15 @@ import dev.leonardpark.emoji.emojicompat.EmojiImageView
 import dev.leonardpark.emoji.EmojiManager
 import dev.leonardpark.emoji.EmojiPopup
 import dev.leonardpark.emoji.emoji.Emoji
-import dev.leonardpark.emoji.facebook.FacebookEmojiProvider
+//import dev.leonardpark.emoji.facebook.FacebookEmojiProvider
 import dev.leonardpark.emoji.google.GoogleEmojiProvider
-import dev.leonardpark.emoji.googlecompat.GoogleCompatEmojiProvider
-import dev.leonardpark.emoji.ios.IosEmojiProvider
+//import dev.leonardpark.emoji.googlecompat.GoogleCompatEmojiProvider
+//import dev.leonardpark.emoji.ios.IosEmojiProvider
 import dev.leonardpark.emoji.listeners.*
-import dev.leonardpark.emoji.one.EmojiOneProvider
-import dev.leonardpark.emoji.samsung.SamsungEmojiProvider
-import dev.leonardpark.emoji.twitter.TwitterEmojiProvider
-import dev.leonardpark.emoji.windows.WindowsEmojiProvider
+//import dev.leonardpark.emoji.one.EmojiOneProvider
+//import dev.leonardpark.emoji.samsung.SamsungEmojiProvider
+//import dev.leonardpark.emoji.twitter.TwitterEmojiProvider
+//import dev.leonardpark.emoji.windows.WindowsEmojiProvider
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +44,7 @@ class MainActivity : AppCompatActivity() {
   private lateinit var rootView: ViewGroup
   lateinit var emojiButton: AppCompatImageButton
 
-  private var emojiCompat: EmojiCompat? = null
+//  private var emojiCompat: EmojiCompat? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -112,51 +110,56 @@ class MainActivity : AppCompatActivity() {
         MainDialog.show(this)
         true
       }
-      R.id.variantFacebook -> {
-        EmojiManager.install(FacebookEmojiProvider())
-        recreate()
-        true
-      }
+//      R.id.variantFacebook -> {
+//        EmojiManager.install(FacebookEmojiProvider())
+//        recreate()
+//        true
+//      }
       R.id.variantGoogle -> {
         EmojiManager.install(GoogleEmojiProvider())
         recreate()
         true
       }
-      R.id.variantGoogleCompat -> {
-        if (emojiCompat == null) {
-          val config: EmojiCompat.Config = BundledEmojiCompatConfig(this)
-          config.setReplaceAll(true)
-          emojiCompat = EmojiCompat.init(config)
-        }
-        EmojiManager.install(GoogleCompatEmojiProvider(emojiCompat))
-        recreate()
-        true
-      }
-      R.id.variantIos -> {
-        EmojiManager.install(IosEmojiProvider())
-        recreate()
-        true
-      }
-      R.id.variantEmojiOne -> {
-        EmojiManager.install(EmojiOneProvider())
-        recreate()
-        true
-      }
-      R.id.variantSamsung -> {
-        EmojiManager.install(SamsungEmojiProvider())
-        recreate()
-        true
-      }
-      R.id.variantTwitter -> {
-        EmojiManager.install(TwitterEmojiProvider())
-        recreate()
-        true
-      }
-      R.id.variantWindows -> {
-        EmojiManager.install(WindowsEmojiProvider())
-        recreate()
-        true
-      }
+//      R.id.variantGoogleCompat -> {
+//        if (emojiCompat == null) {
+//          val config: EmojiCompat.Config = BundledEmojiCompatConfig(this)
+//          config.setReplaceAll(true)
+//          emojiCompat = EmojiCompat.init(config)
+//        }
+//        EmojiManager.install(GoogleCompatEmojiProvider(emojiCompat))
+//        recreate()
+//        true
+//      }
+//      R.id.variantIos -> {
+//        EmojiManager.install(IosEmojiProvider())
+//        recreate()
+//        true
+//      }
+//      R.id.variantEmojiOne -> {
+//        EmojiManager.install(EmojiOneProvider())
+//        recreate()
+//        true
+//      }
+//      R.id.variantSamsung -> {
+//        EmojiManager.install(SamsungEmojiProvider())
+//        recreate()
+//        true
+//      }
+//      R.id.variantTwitter -> {
+//        EmojiManager.install(TwitterEmojiProvider())
+//        recreate()
+//        true
+//      }
+//      R.id.variantWindows -> {
+//        EmojiManager.install(WindowsEmojiProvider())
+//        recreate()
+//        true
+//      }
+//      R.id.variantCustom -> {
+//        EmojiManager.install(CustomProvider())
+//        recreate()
+//        true
+//      }
       else -> super.onOptionsItemSelected(item)
     }
   }
@@ -200,7 +203,7 @@ class MainActivity : AppCompatActivity() {
       })
       .setOnEmojiPopupDismissListener(object : OnEmojiPopupDismissListener {
         override fun onEmojiPopupDismiss() {
-          emojiButton.setImageResource(R.drawable.emoji_ios_category_people)
+          emojiButton.setImageResource(R.drawable.emoji_google_category_people)
         }
       })
       .setOnSoftKeyboardCloseListener(object : OnSoftKeyboardCloseListener {
